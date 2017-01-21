@@ -12,7 +12,7 @@
         $password = $_POST['pass'];
         
         $sql = sprintf("SELECT * FROM Uzytkownik WHERE login='%s'",
-        mysqli_real_escape_string($connection,$login));
+			mysqli_real_escape_string($connection,$login));
         
         if ($query_result = @$connection->query($sql)){
             $numberOfUsers = $query_result->num_rows;

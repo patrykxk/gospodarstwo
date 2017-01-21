@@ -12,6 +12,10 @@
 .dropdown{
 	display: inline;
 }
+.container{
+	padding-right: 0px;
+	padding-left: 0px;
+}
 #menu1{
 	color: #5a5a5a;
   font-size: 11px;

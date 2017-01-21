@@ -11,7 +11,7 @@
   <head>
 	  <link rel="icon" href="css/img/favicon.png">
 	  <meta charset="utf-8">
-		<TITLE>Gospodarswo</TITLE>
+		<TITLE>Gospodarstwo</TITLE>
 		<link rel="stylesheet" href="css/shift.css" >
 		<link rel="stylesheet" href="css/bootstrap.css">
 		<link rel="stylesheet" href="css/main.css">
@@ -22,16 +22,9 @@
 		<script src="scripts/jquery.js"></script>
 		<script src="scripts/bootstrap.min.js"></script> 
 		<script src="scripts/clean-blog.min.js"></script>
+		<script src="script/script.js"></script>
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		
-		<script>
-			$(document).on("click", ".open-Dialog", function () {
-				 var myId = $(this).data('id');
-				 $(".modal-body #dzialkaId").val( myId );
-			});
-
-		</script>
   </head>
 
   <body style="background-color:#fafafa">
@@ -92,9 +85,12 @@
 				
 				<div class=container>
 					<h2>Twoje działki</h1>
+					<div class="pull-right">
+					<button class="btn btn-success" data-toggle="modal" data-target="#add_new_record_modal" style="margin: 0px 5px 5px;">Dodaj nową działkę</button>
+					</div>
 				</div>
 				
-				<div class="table-responsive">
+				<div class="table-responsive" id="table">
 					
 				  <table id="mytable" class="table table-hover table-responsive ">
 					<thead >
@@ -125,16 +121,22 @@
 								while($row = $result->fetch_assoc()) {
 									echo "<tr><td>".$i ."</td><td>".$row['Identyfikator']."</td><td>".$row['powierzchniaDzialki']."</td><td>".$row['Uwagi']."</td>";
 									echo '<td>
-										   <a data-toggle="modal" data-id=" '.$row['id']. '" title="Edytuj" class="open-Dialog btn btn-primary btn-xs" href="#edit"><span class="glyphicon glyphicon-pencil"></span></a>
+											
+										   <a onclick="GetParcelDetails('.$row['id'].')""title="Edytuj" class="open-Dialog btn btn-primary btn-xs" >
 										   
-
+											<span class="glyphicon glyphicon-pencil"></span>
+										   </a>
 										  </td>
 										<td>
-										<p data-placement="top" data-toggle="tooltip" title="Usuń"><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon glyphicon-trash"></span></button></p>
-										</a></td>
+											<p data-placement="top" data-toggle="tooltip" title="Usuń">
+												<button onclick="DeleteRow('.$row['id'].')" class="btn btn-danger btn-xs"  data-title="Delete" >
+													<span class="glyphicon glyphicon-trash"></span>
+												</button>
+											</p>
+										</td>
 										
 										<td>
-											<a href=uprawy.php?id='.$row['id'].'&identyfikator='.$row['Identyfikator'].' title="Uprawy" class="btn btn-success btn-xs" href="#edit"><span class="glyphicon glyphicon-chevron-right">Uprawy</span></a>
+											<a href=uprawy.php?id='.$row['id'].'&identyfikator='.$row['Identyfikator'].' title="Uprawy" class="btn btn-success btn-xs" href="#edit"><span class="glyphicon glyphicon-chevron-right"></span></a>
 											
 										</td>
 										
@@ -152,7 +154,40 @@
 			</div>
 		</div>
 		
-		<div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
+		
+		<div class="modal fade" id="add_new_record_modal" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+						<h4 class="modal-title custom_align" id="Heading">Dodawanie nowej działki</h4>
+					</div>
+					<div class="modal-body">
+						 <div class="form-group">
+							<label for="identyfikator">Identyfikator</label>
+							<input type="text" id="identyfikator" class="form-control " type="text" placeholder="Identyfikator">
+						</div>
+						<div class="form-group">
+						<label for="powierzchnia">Powierzchnia</label>
+							<input type="text" id="powierzchnia" class="form-control " type="text" placeholder="Powierzchnia">
+						</div>
+						<div class="form-group">
+						<label for="uwagi">Uwagi</label>
+							<input type="text" id="uwagi" type="uwagi" class="form-control" placeholder="Uwagi">
+						</div>
+							
+					</div>
+
+				  <div class="modal-footer ">
+					<button type="button" onclick="addRecord()" class="btn btn-warning btn-lg" style="width: 100%;" ><span class="glyphicon glyphicon-ok-sign"></span>Dodaj</button>
+				  </div>
+				</div>
+			<!-- /.modal-content --> 
+			</div>
+			  <!-- /.modal-dialog --> 
+		</div>
+		
+		<div class="modal fade" id="update_parcel_modal" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
@@ -160,26 +195,25 @@
 						<h4 class="modal-title custom_align" id="Heading">Edytowanie wiersza</h4>
 					</div>
 					<div class="modal-body">
-						
-						 <div class="form-group">
-							<input class="form-control " type="text" placeholder="Identyfikator">
+						<div class="form-group">
+							<label for="update_identyfikator">Identyfikator</label>
+							<input class="form-control " id="update_identyfikator" type="text" placeholder="Identyfikator">
 						</div>
 						<div class="form-group">
-							<input class="form-control " type="text" placeholder="Powierzchnia">
+							<label for="update_powierzchnia">Powierzchnia</label>
+							<input class="form-control" id="update_powierzchnia" type="text" placeholder="Powierzchnia">
 						</div>
 						<div class="form-group">
-							<textarea rows="2" class="form-control" placeholder="Uwagi"></textarea>
-						</div>
-						<div class="form-group">
-							
-							<input class="form-control" type="text" name="dzialkaId" id="dzialkaId"/>
+							<label for="update_uwagi">Uwagi</label>
+							<input class="form-control" id="update_uwagi" type="text" placeholder="Powierzchnia">
 						</div>
 							
 					</div>
 
 
 				  <div class="modal-footer ">
-					<button type="button" class="btn btn-warning btn-lg" style="width: 100%;"><span class="glyphicon glyphicon-ok-sign"></span>Zaktualizuj</button>
+					<button type="button" onclick="UpdateParcelDetails()" class="btn btn-warning btn-lg" style="width: 100%;"><span class="glyphicon glyphicon-ok-sign"></span>Zaktualizuj</button>
+					<input type="hidden" id="hidden_parcel_id">
 				  </div>
 				</div>
 			<!-- /.modal-content --> 
