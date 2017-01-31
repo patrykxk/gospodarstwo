@@ -53,12 +53,6 @@
                     <li>
                         <a href="Rosliny.php">Rośliny</a>
                     </li>
-					<li>
-                        <a href="#">Nawozy</a>
-                    </li>
-                    <li>
-                        <a href="#">Opryski</a>
-                    </li>
 					<li><a></a></li>
 					<li>
 						<a><?php echo "Witaj ".$_SESSION['user']."!"; ?></a>

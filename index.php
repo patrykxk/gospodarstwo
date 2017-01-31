@@ -40,16 +40,15 @@
 				<!-- Collect the nav links, forms, and other content for toggling -->
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 					<ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <a href="index.php">Strona główna</a>
-                    </li>
-                    <li>
-                        <a href="rejestracja.php">Rejestracja</a>
-                    </li>
-					<li>
-						<a href="logowanie.php">Logowanie</a>
-					</li>
-                </ul>
+						<li>
+							<a href="index.php">Strona główna</a>
+						</li>
+						<li>
+							<a href="rejestracja.php">Rejestracja</a>
+						</li>
+						<li>
+							<a href="logowanie.php">Logowanie</a>
+						</li>
 					</ul>
 				</div>
 				<!-- /.navbar-collapse -->
@@ -68,8 +67,12 @@
         <div class="container">
             <h2>Idealne wsparcie Twojej pracy</h2>
             <p>
-Nasz portal to innowacyjne rozwiązanie dla każdego gospodarstwa, jakiego nie znajdziesz nigdzie indziej. To system, którego celem jest efektywne zarządzanie uprawą, magazynowanymi materiałami, hodowlą, a co za tym idzie również energią i czasem użytkowników. Program został stworzony dla osób, które chcą zwiększać efektywność swojej działalności rolnej w prosty i przyjemny sposób. Przejrzysty wygląd i intuicyjne rozwiązania sprawią, że każdy użytkownik doskonale poradzi sobie z obsługą tego systemu, nawet bez przeszkolenia z zakresu obsługi komputera.
-</p>
+                Ten portal pomoże Ci zarządzać swoim gospodarstwem rolnym. U nas możesz wprowadzić informacje o swoich uprawach, aby łatwo je kontrolować.
+            </p>
+            <p>
+                Wystarczy, że <a href="rejestracja.php">utworzysz</a> BEZPŁATNE konto!
+            </p>
+            
         </div>
     </div>
     

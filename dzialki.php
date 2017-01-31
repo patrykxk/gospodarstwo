@@ -16,7 +16,6 @@
 		<link rel="stylesheet" href="css/bootstrap.css">
 		<link rel="stylesheet" href="css/main.css">
 	  <style type="text/css">
-
 	  </style>
 		<script src="scripts/jquery.min.js"></script>
 		<script src="scripts/jquery.js"></script>
@@ -51,12 +50,6 @@
                     </li>
 					<li>
                         <a href="Rosliny.php">Rośliny</a>
-                    </li>
-                    <li>
-                        <a href="#">Nawozy</a>
-                    </li>
-                    <li>
-                        <a href="#">Opryski</a>
                     </li>
 					<li><a></a></li>
 					<li>
@@ -120,16 +113,14 @@
 								$i = 1;
 								while($row = $result->fetch_assoc()) {
 									echo "<tr><td>".$i ."</td><td>".$row['Identyfikator']."</td><td>".$row['powierzchniaDzialki']."</td><td>".$row['Uwagi']."</td>";
-									echo '<td>
-											
-										   <a onclick="GetParcelDetails('.$row['id'].')""title="Edytuj" class="open-Dialog btn btn-primary btn-xs" >
-										   
-											<span class="glyphicon glyphicon-pencil"></span>
-										   </a>
-										  </td>
+									echo'<td>
+											<a onclick="getParcelDetails('.$row['id'].')" title="Edytuj" class="open-Dialog btn btn-primary btn-xs" >
+												<span class="glyphicon glyphicon-pencil"></span>
+											</a>
+										</td>
 										<td>
 											<p data-placement="top" data-toggle="tooltip" title="Usuń">
-												<button onclick="DeleteRow('.$row['id'].')" class="btn btn-danger btn-xs"  data-title="Delete" >
+												<button onclick="deleteRow('.$row['id'].')" class="btn btn-danger btn-xs"  data-title="Delete" >
 													<span class="glyphicon glyphicon-trash"></span>
 												</button>
 											</p>
@@ -212,7 +203,7 @@
 
 
 				  <div class="modal-footer ">
-					<button type="button" onclick="UpdateParcelDetails()" class="btn btn-warning btn-lg" style="width: 100%;"><span class="glyphicon glyphicon-ok-sign"></span>Zaktualizuj</button>
+					<button type="button" onclick="updateParcelDetails()" class="btn btn-warning btn-lg" style="width: 100%;"><span class="glyphicon glyphicon-ok-sign"></span>Zaktualizuj</button>
 					<input type="hidden" id="hidden_parcel_id">
 				  </div>
 				</div>
@@ -236,7 +227,7 @@
 			   
 			  </div>
 				<div class="modal-footer ">
-				<button type="button" class="btn btn-success" ><span class="glyphicon glyphicon-ok-sign"></span> Tak</button>
+				<button type="button" class="btn btn-success" ><span class="glyphicon glyphicon-ok-sign"></span> Tak</button>
 				<button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span>Nie</button>
 			  </div>
 				</div>
